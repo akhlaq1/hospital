@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
+import RNPickerSelect from 'react-native-picker-select';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Item, Input,Label,Form, Picker  } from 'native-base';
+import {View, StyleSheet,ScrollView} from 'react-native';
 
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Item, Input,Label } from 'native-base';
-import {View, StyleSheet} from 'react-native';
+
+const payment = [
+  {
+      label: 'Cash',
+      value: 'cash',
+  },
+  {
+      label: 'Paypal',
+      value: 'Paypal',
+  },
+  {
+      label: 'Bank',
+      value: 'bank',
+  },
+];
 
 export default class Sample extends Component {
-
+  state={
+    selected: undefined,
+  }
+  onValueChange = (value) => {
+    this.setState({
+      selected: value
+    })
+  }
   render() {
-
+    
     return (
 
       <Container>
-
-        <Header style={style.header}>
-          <Body style={{alignItems:'center'}}>
-            <Title style={{color:'black'}}><Icon type="FontAwesome" name="plus" style={{color:'red', fontSize:20,}}/> Holy hospital</Title>
-          </Body>
-        </Header>
-
-
         <Content padder>
         <View style={{alignItems:"center"}}>  
       
@@ -41,18 +56,23 @@ export default class Sample extends Component {
               <Input />
             </Item>
 
+              <RNPickerSelect
+              placeholder={{label:"Select payment method", value: null,
+              color: '#9EA0A4',}}
+              style={pickerSelectStyles}
+              items={payment}
+              onValueChange={(value) => this.onValueChange }
+              />
+
             <Button block success style={{marginTop:15,}}>
                 <Icon name="checkmark" />
                 <Text>Submit</Text>
             </Button>
       
+          
         </View>
         </Content>
 
-
-<Footer>
-
-</Footer>
       </Container>
 
     );
@@ -73,5 +93,24 @@ txtInput:{
     marginTop:10
 }
 }
-
 )
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+      fontSize: 16,
+      marginTop:10,
+      borderColor: 'red',
+      borderRadius: 8,
+      color: 'black', // to ensure the text is never behind the icon
+  },
+});
