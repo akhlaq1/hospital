@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Item, Input,Label,Form, Picker  } from 'native-base';
 import {View, StyleSheet,ScrollView} from 'react-native';
-
+import {TextInput} from 'react-native-paper';
 
 const payment = [
   {
@@ -20,59 +20,62 @@ const payment = [
 ];
 
 export default class Sample extends Component {
-  state={
-    selected: undefined,
-  }
-  onValueChange = (value) => {
-    this.setState({
-      selected: value
-    })
-  }
+  
   render() {
     
     return (
 
       <Container>
         <Content padder>
-        <View style={{alignItems:"center"}}>  
       
-        <Item floatingLabel style={style.txtInput}>
-        <Label style={{fontSize:13}}>Name</Label>
-              <Input />
-            </Item>
-      
-            <Item floatingLabel style={style.txtInput}>
-        <Label style={{fontSize:13}}>Father's name</Label>
-              <Input />
-            </Item>
-      
-            <Item floatingLabel style={style.txtInput}>
-        <Label style={{fontSize:13}}>Mobile</Label>
-              <Input />
-            </Item>
-      
-            <Item floatingLabel style={style.txtInput}>
-        <Label style={{fontSize:13}}>CNIC</Label>
-              <Input />
-            </Item>
+        <TextInput
+        label='Name'
+        value={this.props.nameA}
+        onChangeText={this.props.name}
+        mode="outlined"
+        style={{height:55}}
+      />
+
+<TextInput
+        label="Father's Name"
+        value={this.props.fnameA}
+        onChangeText={this.props.fname}
+        mode="outlined"
+        style={{height:55}}
+      />
+
+<TextInput
+        label='Mobile'
+        value={this.props.mobileA}
+        onChangeText={this.props.mobile}
+        mode="outlined"
+        style={{height:55}}
+      />
+
+<TextInput
+        label='CNIC'
+        value={this.props.cnicA}
+        onChangeText={this.props.cnic}
+        mode="outlined"
+        style={{height:55}}
+      />
 
               <RNPickerSelect
               placeholder={{label:"Select payment method", value: null,
               color: '#9EA0A4',}}
               style={pickerSelectStyles}
               items={payment}
-              onValueChange={(value) => this.onValueChange }
+              onValueChange={this.props.payment}
+              value={this.props.paymentA}
               />
 
-            <Button block success style={{marginTop:15,}}>
+            <Button block success style={{marginTop:15,}} onPress={this.props.validate}>
                 <Icon name="checkmark" />
                 <Text>Submit</Text>
             </Button>
       
-          
-        </View>
+        
         </Content>
-
       </Container>
 
     );
